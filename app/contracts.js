@@ -1,13 +1,18 @@
 const Web3 = require('web3'); 
 const Contract = require('truffle-contract');
 const fs = require('fs');
+const commandLineArgs = require('command-line-args')
+const options = commandLineArgs([
+    { name: 'rpc', alias: 'r', type: String }
+]);
 
-var provider = new Web3.providers.HttpProvider("http://localhost:9545");
+if (!options.rpc || options.rpc.length <= 0)
+    throw "RPC endpoint missing";
+
+var provider = new Web3.providers.HttpProvider(options.rpc);
 var web3 = new Web3(provider);
 
-web3.eth.getAccounts(function (err, accounts) {
-    exports.accounts = accounts;
-});
+exports.web3 = web3;
 
 const buildPath = "./build/contracts/";
 // Load contracts from build

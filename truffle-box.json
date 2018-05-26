@@ -7,9 +7,9 @@
         "Compile contracts": "truffle compile",
         "Migrate contracts": "truffle migrate",
         "Test contracts": "truffle test",
-        "Run server": "npm run start"
+        "Run server": "npm start -- --rpc <RPC endpoint>"
     },
     "hooks": {
-        "post-unpack": ""
+        "post-unpack": "npm install"
     }
 }

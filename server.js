@@ -7,12 +7,15 @@ const port = process.env.PORT || 80;
 
 const app = express();
 app.use(bodyParser.json());
-// Routes
 
+// Routes
 // Get all unlocked accounts
 app.get('/accounts', function (req, res) {
-    res.json({
-        accounts: Contracts.accounts
+    Contracts.web3.eth.getAccounts(function (err, accounts) {
+        if (err) { res.status(500).json({ error: err }); return; }
+        res.json({
+            accounts: accounts
+        });
     });
 });
 
